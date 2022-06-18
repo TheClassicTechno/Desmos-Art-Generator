@@ -1,0 +1,68 @@
+.text{
+ /** font-family: Arial, Helvetica, sans-serif;*/
+  font-size: 55px;
+ 
+ text-align: left;
+font-weight:1000;
+  width: 100%;
+  margin: 25px;
+  color: #397bc0;
+
+  
+}
+*{
+  font-family: 'Noto Serif', serif;
+  overflow-x: hidden;
+  background-image: url("assets/desmosbackground.png");
+}
+
+
+
+body {margin:0;}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: transparent;
+  position: fixed;
+  top: 0;
+   
+  width: 100%;
+ 
+
+
+
+  
+}
+a img{
+  width: 60px;
+  height:60px;
+  margin: 8px 14px;
+  padding: 10px;
+  
+}
+li {
+  float: right;
+   
+ 
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 40px;
+  text-decoration: none;
+  
+  
+}
+
+li a:hover:not(.active) {
+ background-color: transparent;
+}
+
+.active {
+  background-color: transparent;
+}
