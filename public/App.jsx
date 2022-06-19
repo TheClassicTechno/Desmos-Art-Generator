@@ -12,31 +12,46 @@ class App extends React.Component {
     this.state = {
       rawImage: 0, //input image
       svgData: 0, //for svg
-      equations: [] //for desmos graph
+      equations: [], //for desmos graph
+      imgWidth: 400, //width of the image (for desmos graph)
+      loadStatus: 0 //loading status 0 = idle, 1 = client-side image processing, 2 = server-side calculation, 3 = drawing graph, 4 = complete
     };
   }
   
   render() {
     return (
-    <div className="text">
+    <div className="generator-app">
       <Upload onFile={(img)=>{this.setInputImage(img)}} />
-      <button onClick={()=>{
-        // get request
-        console.log("button clicked")
-        fetch('/getreq')
-          .then((res)=>res.json())
-          .then((express)=>{
-            // express response
-            
-            //console.log(express.equations);
-            //this.setState({ svgData: express.testImg, equations: express.equations }) 
-            this.setEquations(express.equations);
-          })
-      }}>Try a Sample Image!</button>
-      <br />
-      <ImageCanvas data={this.state.rawImage} onFetch={(eq)=>{this.setEquations(eq)}} />
-      <textarea id="output" className="fade" value={this.state.equations.join("\n")}></textarea>
-      <DesmosGraph className="fade" data={this.state.equations} />
+      <div>
+        <button id="uploadBtn" onClick={()=>{
+          // get request
+          console.log("button clicked")
+          this.setLoadStatus(2);
+          fetch('/getreq')
+            .then((res)=>res.json())
+            .then((express)=>{
+              // express response
+              
+              //console.log(express.equations);
+              //this.setState({ svgData: express.testImg, equations: express.equations }) 
+              this.setEquations(express.equations, 700);//hardcode 700 width
+            })
+        }}>Try a Sample Image!</button>
+      </div>
+      <div className="output-wrapper">
+        <h3>Copy the equations into a new <a href="https://www.desmos.com/calculator">Desmos window</a>!</h3>
+        <textarea id="output" className="fade" value={this.state.equations.join("\n")}></textarea>
+        <p className="fade">{this.state.loadStatus==1 ? "Image processing..." : 
+            this.state.loadStatus==2 ? "Calculating Equations... (Note: large images will take longer to load)" :
+            this.state.loadStatus==3 ? "Drawing" :
+            this.state.loadStatus==4 ? (<a href="#calculator">Complete! Click to view Desmos graph</a>) :"Upload a file to start!"}</p>
+      </div>
+      
+      <div className="output-wrapper">
+        <ImageCanvas data={this.state.rawImage} onFetch={(eq, width)=>{this.setEquations(eq, width)}} setLoadStatus={(n)=>{this.setLoadStatus(n)}} />
+      </div>
+      
+      <DesmosGraph data={this.state.equations} imgWidth={this.state.imgWidth} setLoadStatus={(n)=>{this.setLoadStatus(n)}} />
       
     </div>  
   )
@@ -45,10 +60,14 @@ class App extends React.Component {
   setInputImage(img) {
     if (!img) return;//don't reset the raw image if there's no image
     this.setState({ rawImage: img });
+    this.setLoadStatus(1);
     //console.log(this.state.rawImage)
   }
-  setEquations(eq) {
-    this.setState({ equations: eq });
+  setEquations(eq, width) {
+    this.setState({ equations: eq, imgWidth: width });
+  }
+  setLoadStatus(n) {
+    this.setState({ loadStatus: n});
   }
 }
 /*//Old post request button
@@ -99,7 +118,7 @@ class DesmosGraph extends React.Component {
     }
     //add new calculator
     console.log(`Rendering ${this.props.data.length} Desmos expressions...`)
-    
+    this.props.setLoadStatus(3);
     var calculator = Desmos.GraphingCalculator(elt, {expressionsCollapsed: true});
     for (var i = 0; i < Math.min(eqDisplayLimit,this.props.data.length); i++) {
       calculator.setExpression({
@@ -109,13 +128,14 @@ class DesmosGraph extends React.Component {
       });
     }
     calculator.setMathBounds({
-      left: 0,
-      right: 400,
-      bottom: -400,
-      top: 0
+      left: -10,
+      right: this.props.imgWidth + 50,
+      bottom: -this.props.imgWidth - 50,
+      top: 10
     });
     //alert user
     if (this.props.data.length > eqDisplayLimit) alert("Loading all equations with the widget is too slow, please copy and paste your equations into a new Desmos window.")
+    this.props.setLoadStatus(4);
   }
   
   render() {
@@ -131,7 +151,8 @@ class Upload extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="upload-btn-wrapper">
+        <button id="upload-btn">Upload a File</button>
         <input type="file" name="img" accept="image/*" onChange={(event)=>{this.props.onFile(event.target.files[0])}}/>
       </div>
            );
@@ -146,7 +167,8 @@ class ImageCanvas extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.data == this.props.data) return;//only update canvas if new data
-    var onFetch = (eq) => {this.props.onFetch(eq)};
+    var onFetch = (eq, width) => {this.props.onFetch(eq, width)};
+    var setLoadStatus = (n) => {this.props.setLoadStatus(n)};
     //draw the image
     var canvas = document.getElementById("imageCanvas");
     var ctx = canvas.getContext('2d');
@@ -168,6 +190,7 @@ class ImageCanvas extends React.Component {
       console.log(finArr)
       //send to server
       console.log("BEAMING UP THE DATA")
+      setLoadStatus(2);
       fetch('/postimage', {
         method: 'POST',
         headers: {
@@ -180,7 +203,7 @@ class ImageCanvas extends React.Component {
           //send the data up!
           console.log("WE HAVE THE DATA YAYYA")
           console.log(express.equations)
-          onFetch(express.equations);
+          onFetch(express.equations, finArr.length);
         })
     }
   }

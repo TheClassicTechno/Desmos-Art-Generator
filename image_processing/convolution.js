@@ -70,7 +70,7 @@ function calcGrad(filteredArr) {
 }
 
 //make filters
-var blurFilter = gaussianFilter(5, 1, 100);
+var blurFilter = gaussianFilter(3, 1, 100);
 
 //sobel edge detection kernels
 var sobelX = [
