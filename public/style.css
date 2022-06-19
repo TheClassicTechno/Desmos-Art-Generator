@@ -1,41 +1,215 @@
-.text{
- /** font-family: Arial, Helvetica, sans-serif;*/
-  font-size: 55px;
- 
- text-align: left;
-font-weight:1000;
-  width: 100%;
-  margin: 25px;
-  color: #397bc0;
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-family: 'Noto Serif', serif;
+  color: #397bc0;
+  /* font-family: 'Roboto', sans-serif;*/
+  scroll-behavior: smooth; /*for animated button-scrolling*/
+}
+.column {
+  
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 900px; 
+  border-radius:20px;
   
 }
-*{
-  font-family: 'Noto Serif', serif;
-  overflow-x: hidden;
+#index {
+  border-radius:20px;
+  padding: 10px;
+  box-shadow: 5px 5px 5px 5px #888888;
+   height: 300px; 
+  display:inline-block;
+}
+
+.row:after {
+  
+  content: "";
+  display: table;
+  clear: both;
+}
+div {
+  float: left;
+  padding: 15px; 
+}
+
+.div1 {
+  background: red;
+}
+
+.div2 {
+  background: yellow;
+}
+
+.img2 {
+  float: right;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+p {
+  font-size:20px;
+   margin-bottom:15px;
+  padding-bottom:14px;
+ 
+}
+body {
+  /*background-color:#87fa92;*/
   background-image: url("assets/desmosbackground.png");
 }
 
-
-
-body {margin:0;}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: transparent;
-  position: fixed;
-  top: 0;
-   
+.container{
   width: 100%;
- 
+  height: 100vh;
+  padding-top: 1%;
+}
+/*I moved the background stuff out of .container for generalization*/
+#home {
+  background-image: url("assets/desmosbackground.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.navbar{
+  height: 12%;
+  display: flex;
+  align-items: center;
+  color: #397bc0;
+  overflow: hidden;
+}
+.navbar p {
+  margin-top:23px;
+  font-weight:1000;
+  font-size:24px;
+}
+nav{
+  flex: 1;
+  text-align: right;
+  margin-right: 50px;
+}
+
+nav ul li{
+  list-style: none;
+  display: inline-block;
+  margin-left: 110px;
+}
 
 
-
+nav ul li a:hover{
+  text-decoration: none;
+  color: #79BCB8;
+  
   
 }
+nav ul li::after{
+	content: '';
+	height: 3px;
+	width: 0;
+	background: #009688;
+	position: absolute;
+	left: 0;
+	bottom: -10px;
+	transition:0.5s;
+}
+nav ul li:hover::after{
+	width:100%;
+}
+nav ul li a{
+  text-decoration: none;
+  color: #397bc0;
+  font-size: 20px;
+  font-weight: 500;
+}
+.row{
+ /* display: flex;*/
+  display: inline-block;
+  height: 88%;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.col{
+  
+  flex-basis: 50%;
+}
+
+h1{
+  color: black;
+  font-size: 90px;
+   text-shadow: 0 0 5px #fff,0 0 10px #fff,0 0 15px #fff,0 0 20px #2CA6A4;
+  
+}
+h2{
+  color: #2CA6A4;
+  font-size: 40px;
+  padding:10px;
+  margin-bottom:15px;
+  padding-bottom:14px;
+  line-height: 1.8;
+  text-decoration: underline wavy #397bc0 9px;
+  
+}
+/*
+button{
+  width: 180px;
+  color: white;
+  font-size: 17px;
+  padding: 12px 0;
+  background: black;
+  border: 0;
+  border-radius: 20px;
+  outline: none;
+  margin-top: 30px;
+  cursor: pointer;
+}*/
+button{
+	width:200px;
+  
+	padding: 15px 0;
+	text-align:center;
+	margin: 20px 10px;
+	border-radius:25px;
+font-weight:bold;
+border: 2px solid #009688;
+background:transparent;
+  opacity:0.9;
+color: black;
+cursor: pointer;
+  font-size:19px;
+}
+
+button:hover {
+	border: none;
+  transition:1.1s;
+  background:#3AA7A3;
+}
+
+/* for the file upload button*/
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+
+img {
+ /* width: 400px;
+  height:460px;
+  margin: 8px 14px;
+  padding: 10px;
+  margin-left: 130px;
+  padding-left:130px;*/
+  float:right;
+  opacity:0.5;
+}
+
 a img{
   width: 60px;
   height:60px;
@@ -43,26 +217,159 @@ a img{
   padding: 10px;
   
 }
-li {
-  float: right;
-   
+
+
+/* desmos calculator */
+#calculator {
+  display:block;
+  width: 1000px;
+  height: 1000px;
+}
+
+/* animations */
+.fade {
+  animation: fade-in 0.8s ease-in-out;
+}
+.fade-out {
+  animation: fade-out 0.5s ease-out;
+}
+@keyframes fade-in {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
+
+
+.footer p, .footer2 p{
+  font-size:20px;
+  text-align: center;
+  margin-left:20px;
+  
+  
+  
+}
+
+.footer, .footer2 {
+  text-align: center;
+  width: 100%;
+  padding: 5px 0;
+  margin-bottom: 15px;
+  color: #397bc0;
+}
+
+.footer .fa {
+    margin-bottom: 20px;
+    border-radius: 50%;
+    font-size: 34px;
+    width: 44px;
+    height:44px;
+    position: center;
+   color: #397bc0;;
+    text-align: center;
+    text-decoration: none;
+    margin: 0 13px;
+    cursor: pointer;
+    padding: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+.footer, .footer2 {
+  padding-top:25px;
+ color: #397bc0;;
+  padding-bottom:30px;
+  margin-bottom:-30px;
  
 }
+.nav{
+   
+  background-color:transparent;
 
-li a {
-  display: block;
-  color: white;
   text-align: center;
-  padding: 14px 40px;
-  text-decoration: none;
+  margin-bottom:15px;
+}
+
+.main{
+  margin-top:15px;
+  background-color:transparent;
+  padding:30px;
+  margin:30px;
+  text-align: center;
+  margin-bottom:15px;
+}
+
+.main p{
+  padding-top:15px;
+}
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; 
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#output {
+  width: 400px;
+  height:400px;
+}
+
+
+
+
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #397bc0;;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  
+}
+
+input[type=submit]:hover {
+  opacity:0.7;
+  transition:0.5s;
+}
+
+.container {
+  border-radius: 20px;
+  background-color: #9DD9D2;
+  padding: 20px;
   
   
 }
 
-li a:hover:not(.active) {
- background-color: transparent;
-}
 
-.active {
-  background-color: transparent;
-}

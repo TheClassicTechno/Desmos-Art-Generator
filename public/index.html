@@ -3,30 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
   <title>Desmos Art Generator!</title>
-  <link rel="shortcut icon" type="image/png" href="/assets/desmosartgenlogo.png">
-</head>
-<body>
-
-  <ul>
-    <li><a href="#about">Contact</a></li>
-     <li><a href="#contact">Try It Out</a></li>
-    <li><a href="#news">About</a></li>
-  <li><a class="active" href="#home">Home</a></li>
-   <a href="index.html"><img src="assets/desmoslogo2.png"> Desmos Art Gen </a>
- 
-  
-</ul>
-  <div id="app"></div>
-  <div id="hi"></div>
+  <link rel="shortcut icon" type="image/png" href="/assets/desmoslogo2.png">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://www.desmos.com/api/v1.7/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+</head>
+
+  
+<body>
+
+  <div class= "container" id="home">
+    
+    <div class="navbar">
+      <!--Put image here-->
+       <a href="index.html"><img src="/assets/desmoslogo2.png"></a>
+      <p>Desmos Art Generator</p>
+      <nav>
+        <ul>
+          <li><a class="active" href="index.html">HOME</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+         
+          <li><a href="try.html">TRY IT OUT</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="row fade">
+      <div class="col">
+         <section class="main">
+        <h1>Desmos Art Generator.</h1>
+         <h2>Beautiful, Free Art.</h2>
+       
+        <p>Engage with your favorite online calculator in a new, engaging way!  With the power of computer vision, math, and a pinch of artistic talent, anyone can create their own art on a Desmos canvas!</p>
+        <a href="#generate"><button type="button" onclick="fade()">Try It Out</button></a>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="generate">
+    <div id="app" class="fade"></div>
+  </div>
+  
+
+  <script src="animatecss.js"></script>
   <!-- Please compile your JSX files before production -->
   <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   <script crossorigin defer type="text/babel" src="App.jsx"></script>
 </body>
 </html>
+
+<!--<ul>
+    <li><a href="contact.html">Contact</a></li>
+     <li><a href="try.html">Try It Out</a></li>
+    <li><a href="how.html">How it Works </a></li>
+    <li><a href="about.html">About</a></li>
+  <li><a class="active" href="index.html">Home</a></li>
+   <a href="index.html"><img src="assets/desmoslogo2.png"> Desmos Art Gen </a>
+ 
+  
+</ul>-->
