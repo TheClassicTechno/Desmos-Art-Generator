@@ -2,6 +2,8 @@
 
 Made by Julia Huang, Archimedes Li, Mahika Patil, Lino Le Van
 
+3rd place space city hacks.
+
 ## Overview
 
 **Desmos Art Generator** is a JavaScript-based tool designed to automate the creation of mathematical art for use in [Desmos](https://www.desmos.com/), the online graphing calculator. This project includes scripts and utilities to convert images and mathematical patterns into Desmos-friendly graph code, allowing for the creation of complex designs and parametric art.
